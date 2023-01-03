@@ -1,0 +1,98 @@
+### The metrics have the following fields:
+
+- time
+	- Time elapsed since the start of the simulation
+- years
+	- Years passed since the start of the simulation
+- day
+	- Current day since the start of the simulation (simulation starts at day 1)
+- price
+	- Current marginal price in the [[../Agents/AMM]] (token price)
+- daus
+	- Current daily active users
+- num_operators_decentralized
+	- Current number of decentralized [[../Agents/Operators]]
+- num_operators_centralized
+	- Current number of centralized [[../Agents/Operators]]
+- total_staked
+	- Amount of tokens staked by the [[../Agents/Operators]] and [[../Agents/App developers]]
+- operator_staked
+	- Amount of tokens staked by the [[../Agents/Operators]]
+- developer_staked
+	- Amount of tokens staked by the [[../Agents/App developers]]
+- burnt_tokens
+	- Amount of tokens burnt since the last minting
+- step_burnt tokens
+	- Amount of tokens burnt in the current step
+- total_burnt_tokens
+	- Amount of tokens burnt since the start of the simulation
+- minted_tokens
+	- Amount of tokens minted in the last minting period
+- step_minted_tokens
+	- Amount of tokens minted in the current step
+- total_minted_tokens
+	- Amount of tokens minted since the start of the simulation
+- rewars_value_per_operator
+	- Rewards per node in the current step
+- costs_per_operator
+	- Costs per operator in the current step
+- profit_per_operator
+	- Profit per operator in the current step
+- pool_token
+	- Current amount of tokens in the [[../Agents/AMM]] pool
+- pool_usd
+	- Current amount of USDs in the [[../Agents/AMM]] pool
+- total_supply
+	- Current amount of existing tokens
+- circulating_supply
+	- Current amount of circulating tokens (all vested and minted minus burnt)
+- treasury_tokens
+	- Current amount of tokens held by the [[../Agents/Treasury]]
+- investor_tokens
+	- Current amount of tokens held by the [[../Agents/Investors]]
+- developers_will_buy_discounts
+	- Boolean state to show if the developers are currently willing to buy tokens to get discounts (I'm not 100% sure on this, might need to check)
+- prospective_yield
+	- Yield that an operator would had gotten if they had entered the network in the previous step
+- new_operators
+	- Amount of new operators in the current step
+- flow_bought_developer_staking_tokens
+	- Amount of tokens bought by the [[../Agents/App developers]] for staking in the current step
+- flow_bought_operator_staking_tokens
+	- Amount of tokens bought by the [[../Agents/Operators]] for staking in the current step
+- flow_bought_investor_tokens
+	- Amount of tokens bought by the [[../Agents/Investors]] in the current step
+- flow_bought_burn_tokens
+	- Amount of tokens bought to be burned in the current step
+- flow_sold_treasury_tokens
+	- Amount of tokens sold by the [[../Agents/Treasury]] in the current step
+- flow_sold_operator_rewards_tokens
+	- Amount of tokens sold by the [[../Agents/Operators]] for the network rewards in the current step
+- flow_bought_developer_staking_usd
+	- USD spent by the [[../Agents/App developers]] in the current step to buy the tokens necessary for staking in the current step
+- flow_bought_operator_staking_usd
+	- USD spent by the [[../Agents/Operators]] in the current step to buy the tokens necessary for staking in the current step
+- flow_bought_investor_usd
+	- USD spent by the [[../Agents/Investors]] in the current step to buy tokens in the current step
+- flow_bought_burn_usd
+	- USD spent to buy tokens to be burned in the current step
+- flow_sold_treasury_usd
+	- USD earned by the [[../Agents/Treasury]] from selling tokens in the current step
+- flow_sold_operator_rewards_usd
+	- USD earned by the [[../Agents/Operators]] from selling their rewards in the current step
+- mint_burn_ratio
+	- Ratio of tokens minted for each burned token in the current step
+- mrr
+	- Current MRR of the network
+- investor_valuation_based_token_price
+	- Current perceived token valuation by the [[../Agents/Investors]]
+- valuation_cap
+	- Current value of the total supply of tokens according to the [[../Agents/AMM]] marginal price
+- investor_valuation
+	- Current yotal valuation of the project by the [[../Agents/Investors]]
+- incentives
+	- Incentives given by the treasury to the [[../Agents/Operators]] in the [[Operators/Distribute rewards]] part of the current step
+- incentives_ratio
+	- Ratio of tokens given by the [[../Agents/Treasury]] to the [[../Agents/Operators]] for each token that the [[../Agents/Treasury]] should have gotten in the [[Operators/Distribute rewards]] part of the current step
+- average_sessions_per_worker
+	- Average number of concurrent sessions for each node in the current step

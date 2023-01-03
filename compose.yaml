@@ -1,0 +1,15 @@
+services:
+  quartz-hugo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quartz-hugo
+    ports:
+      - 1313:1313
+
+    # optional
+    environment:
+      - HUGO_BIND=0.0.0.0
+      - HUGO_BASEURL=http://localhost
+      - HUGO_PORT=1313
+      - HUGO_APPENDPORT=true
