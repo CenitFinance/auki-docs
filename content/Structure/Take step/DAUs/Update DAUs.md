@@ -9,7 +9,7 @@ Currently, there are two parameterizations available for the DAUs evolution.
 
 ### Grow and stagnate
 
-In this model, the DAUs grow with a base rate at the beginning and steadily reduce their growth until they asymptotically approach the DAUs at saturation value.
+In this model, the DAUs grow with a quadratically increasing rate at the beginning and but asymptotically approach the DAUs at saturation value.
 
 Saturation time -> $d_s$
 

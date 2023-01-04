@@ -27,5 +27,6 @@ This includes the distribution of some tokens that constitute the initial circul
 
 In the initialization, an [[../Agents/AMM.md|AMM pool]] is created to act as the simulated market environment.
 
-There is an initial [[../Take step/AMM/Provide liquidity|provision of liquidity]] to this AMM, set as a percentages of the total tokens avaiable to the investors and the treasury.
+There is an initial [[../Take step/AMM/Provide liquidity|provision of liquidity]] to this AMM, set as a percentages of the total tokens avaiable to the investors and the treasury. This initial liquidity is provided at the price point of the public sale, which is therefore the initial price of the token.
+
 Both the investors and the treasury will try to adjust their liquidity provision to this percentage throughout the simulation, providing liquidity to the market when the percentage is too low and removing liquidity when the percentage is too high.
