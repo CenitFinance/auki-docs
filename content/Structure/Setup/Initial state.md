@@ -1,34 +1,31 @@
-time -> 0
+# Initial state
 
-[[../Agents/App developers]] staking -> 0
+The initial state of the simulation is the Token Generation Event. From this point forwards:
+ * The first tokens have been minted and distributed or sold to investors
+ * The token economy is live, with a market facilitating the exchange of tokens for USD
+ * The token utility is available, with app developers being able to exchange tokens for network credits
+ * Vesting schedules for investors and the treasury begin to vest
+ * The minting events beggin to occur periodically
 
-[[../Agents/Operators]] rewards -> 0
+Most simulation variables are initialized at this point. Additionally, some specific actions are taken to initialize the simulation environment, described below.
 
-[[../Agents/Treasury]] tokens -> 0
+## Network
 
-[[../Agents/Treasury]] USD -> 0
+Initially, no decentralized workers exist in the network. 
+There is an initial number of centralized workers providing the service, which is a design parameter of the simulation.
 
-[[../Agents/Investors]] tokens -> 0
+## Staking
 
-[[../Agents/Investors]] vested tokens -> 0
+Both worker [[../Agents/Operators|operators]] and [[../Agents/App developers|app developer]] stake are initialized to 0.
 
-[[../Agents/Treasury]] vested tokens -> 0
+## Vesting
 
-Update vesting with [[../Take step/Vesting/Update vesting]] at time step = 1
-	This changes _investor vested tokens_, _treasury vested tokens_, _investor tokens_ and _treasury_tokens_
+The vesting schedules for [[../Agents/Investors|investors]] and the [[../Agents/Treasury|treasury]] are initialized to at time 0.
+This includes the distribution of some tokens that constitute the initial circulating supply, including the public sale.
 
-[[../Agents/Investors]] liquidity provided -> _investor tokens_ · investor liquidity ratio (hypothesis)
+## Market
 
-Remove tokens from last line from _[[../Agents/Investors]] tokens_
+In the initialization, an [[../Agents/AMM.md|AMM pool]] is created to act as the simulated market environment.
 
-Remove tokens calculated with [[../Take step/AMM/Provide liquidity]] from _[[../Agents/Investors]] tokens_
-
-Remove tokens calculated with [[../Take step/AMM/Provide liquidity]] from _[[../Agents/Treasury]] tokens_
-
-token TWAP -> 0
-
-mrr -> 0
-
-[[../Agents/Investors]] valuation -> 0
-
-[[../Agents/App developers]] will but discounts -> True
+There is an initial [[../Take step/AMM/Provide liquidity|provision of liquidity]] to this AMM, set as a percentages of the total tokens avaiable to the investors and the treasury.
+Both the investors and the treasury will try to adjust their liquidity provision to this percentage throughout the simulation, providing liquidity to the market when the percentage is too low and removing liquidity when the percentage is too high.
