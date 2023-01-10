@@ -1,6 +1,6 @@
 # Distribute rewards
 
-The amount of tokens minted in an epoch is distributed to the [[../../Agents/Treasury]] and the [[../../Agents/Operators]]. 
+The amount of tokens minted in an epoch is distributed to the treasury and the operators. 
 The ratio of the tokens that go to the operators is determined by the Hagall rewards ratio design parameter.
 
 An additional ammount might go to the operators from the treasury as incentives, intended to encourage new participants to join the network.
