@@ -9,7 +9,7 @@ This effect is essentially unpredictable. For the purposes of the simulation, it
 The amount of tokens bought or sold by investors is calculated as the amount needed to take the token price to the point where the market cap is equal to the estimated project valuation. This is calculated as follows:
 
 $$
-A = X - \sqrt{K \cdot \frac{S}{V}}
+A = X - \left(K \cdot \frac{S}{V} \right)^{\frac{1}{2}}
 $$
 
 Where:
