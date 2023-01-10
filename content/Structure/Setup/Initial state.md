@@ -16,17 +16,17 @@ There is an initial number of centralized workers providing the service, which i
 
 ## Staking
 
-Both worker [[../Agents/Operators|operators]] and [[../Agents/App developers|app developer]] stake are initialized to 0.
+Both worker operators and app developer stake are initialized to 0.
 
 ## Vesting
 
-The vesting schedules for [[../Agents/Investors|investors]] and the [[../Agents/Treasury|treasury]] are initialized to at time 0.
+The vesting schedules for investors and the treasury are initialized to at time 0.
 This includes the distribution of some tokens that constitute the initial circulating supply, including the public sale.
 
 ## Market
 
-In the initialization, an [[../Agents/AMM.md|AMM pool]] is created to act as the simulated market environment.
+In the initialization, an [[../Agents/AMM|AMM pool]] is created to act as the simulated market environment.
 
-There is an initial [[../Take step/AMM/Provide liquidity|provision of liquidity]] to this AMM, set as a percentages of the total tokens avaiable to the investors and the treasury. This initial liquidity is provided at the price point of the public sale, which is therefore the initial price of the token.
+There is an initial provision of liquidity to this AMM, set as a percentages of the total tokens avaiable to the investors and the treasury. This initial liquidity is provided at the price point of the public sale, which is therefore the initial price of the token.
 
 Both the investors and the treasury will try to adjust their liquidity provision to this percentage throughout the simulation, providing liquidity to the market when the percentage is too low and removing liquidity when the percentage is too high.

@@ -6,15 +6,33 @@ This behaviour, including the length of the epoch, is part of the design of the 
 
 ## Constant deflation rate
 
-Burnt tokens since last minting -> $B$
+The minted amount is a constant ratio of the burnt amount since the last minting epoch.
 
-Deflation rate -> $r$
-
-Minting
 $$
 M(B) = r B
 $$
 
+where
+ * $M$: Amount of tokens to be minted this epoch
+ * $B$: Burnt tokens since last minting
+ * $r$: Deflation rate
+
+
+## Asymptotic total supply
+
+The minted amount targets a final amount of total supply to be reached asymptotically.
+
+$$
+M(B) = \left( 1 - \dfrac{T-T_f}{T_i - T_f} \cdot \left( 1 - r_i \right) \right) \cdot B
+$$
+
+where
+ * $M$: Amount of tokens to be minted this epoch
+ * $B$: Burnt tokens since last minting
+ * $r_i$: Deflation rate at the TGE initial total supply
+ * $T$: Current total supply
+ * $T_i$: Initial total supply
+ * $T_f$: Final total supply (target)
 ## Asymptotic mint rate (reused formula)
 
 Current value -> $v$
@@ -136,7 +154,7 @@ $$
 M = \sum c_iM_i
 $$
 
-## Changing minting calculator
+## Transitioning minting calculator
 
 Minting calculators -> $\{M_i\}$
 

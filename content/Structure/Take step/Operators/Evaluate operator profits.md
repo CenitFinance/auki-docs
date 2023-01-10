@@ -1,76 +1,77 @@
-The [[../../Agents/Operators]] immediately sell the [[../../Agents/Operators]] rewards from to the [[../../Agents/AMM]]
+# Evaluate operator profits
 
-Only decentralized operators get the rewards, so only they have earnings
+Once new rewards have been distributed, operators sell the token in order to cover their costs and make a profit. They evaluate their profits or losses and some decide whether to leave the network or not.
 
-Set the [[../../Agents/Operators]] rewards to 0
+Additionally, if prospective profits are attractive, new operators might want to join the network. This is modeled as the potential yield, calculated as the yearly profit from an initial investment equivalent to the staking amount.
 
-Get the [[../../Agents/Operators]] network costs from the DAUs, cost per DAU and fraction of a day passed in the time step
+## Calculation
 
-DAUs -> $U$
-Cost per DAU -> $C$
-Fraction of a day passed -> $\Delta d = \frac{\Delta t}{24 \cdot 3600}$
+First, we take into account the from selling the token delivered as rewards on the aggregated AMM that emulates the market in order to calculate the profits, as well as the costs from running the nodes.
 
-Network costs -> $C_n = CU\Delta d$
+$$
+P_{o} = E_{o} - C_{o}
+$$
 
-Split those costs between the centralized and decentralized [[../../Agents/Operators]] using the decentralization factor
+where
+ * $P_{o}$ is the profit per operator
+ * $E_{o}$ is the earnings per operator from the sale of the token (incluing any possible slippage on the AMM)
+ * $C_{o}$ is the costs per operator
 
-Decentralization factor -> $d$
-Centralized costs -> $C_{n,c}$
-Decentralized costs -> $C_{n,d}$
+$C_{o}$ is calculated takes into account fixed costs and variable (network) costs.
 
-Calculate the fixed node costs from the fixed daily costs (hypothesis)
+$$
+C_{o} = C_{o, fixed} + c_{o, network} \cdot T_{o}
+$$
 
-Fixed node costs -> $c_f$
-Number of decentralized nodes -> $n_d;n_d \in \mathbb{R};n_d>0$
-Costs per node -> $c = \frac{C_{n,d}}{n_d} + c_f$
+where
+ * $C_{o, fixed}$ are the fixed costs
+ * $c_{o, network}$ are the variable costs per unit of traffic served
+ * $T_{o}$ is the traffic served per operator
 
-Calculate the node profits as the difference between the earnings from selling the rewards and the fixed + network costs per node (only for the decentralized nodes)
+If $P_{o} > 0$, operators are, on average, profitable and will continue to operate. Otherwise, if $P_{o} < 0$, some will leave the network. This is modeled linearly with the losses as:
 
-Earnings -> $E$
-Earnings per node -> $e=\frac{E}{n_d}$
-Profit per node -> $p = e-c$
+$$
+\Delta N_{o} = r_e \cdot P_{o} \cdot \Delta t
+$$
 
-The max network profit is calculated as the [[../../Agents/Operators]] earnings minus the decentralized nodes costs
+where
+ * $\Delta N_{o}$ is the change in the number of operators
+ * $r_e$ is the exit rate
+ * $P_{o}$ is the profit per operator (negative in this case)
+ * $\Delta t$ is the time since the last profit evaluation
 
-Max network profit -> $P_{max}=E-C_{n,d}$
+On the other hand, if $P_{o} > 0$, new operators might want to join the network. This is modeled as the potential yield, calculated as the yearly profit from an initial investment equivalent to the staking amount. The yield is calculated as:
 
-We get the prospective profit as the possible profit per operator if the would've been 1 operator more in this step
+$$
+Y_{o} = \frac{P_{o}}{S_{o}}
+$$
 
-Prospective profit -> $p_p=\frac{P_{max}}{n_d+1}-c_f$
+where
+ * $Y_{o}$ is the yield per operator
+ * $P_{o}$ is the profit per operator
+ * $S_{o}$ is the staking amount per operator (in dollars)
 
-The prospective yield is calculated from taking the prospective profit for a whole year over the current USD value staking for the operator
+The amount of new operators is calculated as:
 
-USD value staking -> $s$
-Prospective yield -> $y_p=p_p\frac{365}{\Delta d}\frac{1}{s}$
+$$
+\Delta N_{o} = r_j \cdot \left(Y_{o} - Y_{minimum} \right) \cdot \Delta t
+$$
 
-If the prospective profit is below 0,  some of the [[../../Agents/Operators]] want to exit according to the exit ratio (hypothesis), prospective profit (negative) and fraction of a day passed in the time step
+where
+ * $\Delta N_{o}$ is the change in the number of operators
+ * $r_j$ is the join rate
+ * $Y_{o}$ is the yield per operator
+ * $Y_{minimum}$ is the minimum yield required to incentivize new operators to join
+ * $\Delta t$ is the time since the last profit evaluation
 
-The exits are limited by the number of operators exiting where the prospective profit becomes positive (they no longer have a reason to exit) and the max variation in decentralized [[../../Agents/Operators]] per time step (20%)
+If new operators join the network, they purchase token from the AMM in order to stake it. If they leave, they sell the token in the AMM. The amount of token exchanged is calculated as:
 
-Exit ratio -> $r_e$
-Operators leaving from exit ratio -> $E_r = r_e p_p \Delta d$
-Operators that need to leave to reach profitability -> $E_p=n_d - \frac{P_{max}}{c_f}$
-Max variation in operators -> $E_{max} = 0'2 n_d$
+$$
+\Delta T_{o} = \Delta N_{o} \cdot \dfrac{S_{o}}{P}
+$$
 
-Operators leaving -> $\min\{E_r, E_p, E_{max}\}$
-
-If the prospective profit is less than the minimum incentivized yield (hypothesis), no new [[../../Agents/Operators]] want to enter, so there is no change
-
-If the prospective profit is above the minimum incentivized yield, new [[../../Agents/Operators]] want to enter according to the yield eagerness (hypothesis), yield incentive (diff between prospective yield and minimum incentivized yield) and fraction of a day passed in the time step
-
-The enters are limited by the number of operators entering where the prospective profit becomes less than the minimum incentivized yield (I'm not 100% sure I got the formula right, so this may be wrong), and the max variation in decentralized [[../../Agents/Operators]] per time step (20% + 1 to account for the starting point where there are no decentralized [[../../Agents/Operators]])
-
-Yield eagerness -> $r_e$
-Minimum incentivized yield -> $y_{min}$
-Yield incentive -> $y_i = y_p - y_{min}$
-Operators entering from yield prospects -> $E_y = r_e y_i \Delta d$
-Operators that need to enter to have yield below minimum -> $E_p = P_{max}\left(\frac{s y_{min}}{365 {\Delta d}^{-1}} + c_f\right)$
-Max variation in operators -> $E_{max} = 0'2 n_d$
-
-Operators entering -> $\min\{E_y, E_p, E_{max}\}$
-
-After this, we [[Update the number of operators]] (this includes optimizing the staking for the existing operators) and get the change in tokens from it
-
-We now [[../AMM/Operate token]] for the change in tokens from the [[../../Agents/Operators]] update
-
-If the centralization objective (design parameter) is not satisfied, new centralized [[../../Agents/Operators]] enter or exit the network to satisfy it (these make no token staking or selling)
+where
+ * $\Delta T_{o}$ is the change in the amount of token exchanged
+ * $\Delta N_{o}$ is the change in the number of operators
+ * $S_{o}$ is the staking amount per operator (in dollars)
+ * $P$ is the price of the token in dollars after the exchange
